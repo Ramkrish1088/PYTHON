@@ -12,3 +12,5 @@ Dependent Coulmn:
 Since the 'Failure' column is supervised and categorized, I would say it's categorized. The values in this column are either 0 or 1.
 By using the remaining columns as independent variables, the final result set is generated.
 
+
+
