@@ -1,4 +1,4 @@
-#Python Basic:
+#Python Basics:
 
 #variable rules
 #1. A variable name should start with a letter or an underscore
