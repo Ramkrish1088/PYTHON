@@ -1,4 +1,4 @@
-Dataset: Hard Drive Test Data
+Dataset name: Hard Drive Test Data
 
 Dataset Link: https://www.kaggle.com/datasets/backblaze/hard-drive-test-data
 
@@ -6,4 +6,9 @@ My Analysis:
             The dataset being analyzed pertains to hard drive testing and monitoring. It contains a substantial volume of information, comprising approximately 95 columns and over 100,000 rows of data. Each row represents a snapshot taken from a specific hard drive on a given date. The first column records the date of the test, capturing the chronological aspect of drive performance. The second column holds the serial number, uniquely identifying each drive and allowing for traceability over time. The third column specifies the model of the hard drive, which is tied to the manufacturer, enabling comparison across different drive designs and vendors. The fourth column indicates the capacity of the drive in bytes, giving context to the drive's workload and usage profile.
 The fifth column is a critical feature: it acts as a failure flag, where a value of 0 denotes that the drive was operating normally on that day, and a value of 1 indicates that the drive failed on that particular date. This binary outcome is central to the analysis, as it allows for failure prediction and reliability assessment. The remaining 90 columns consist of SMART (Self-Monitoring, Analysis, and Reporting Technology) attributes. These are numerical indicators of various operational parameters related to the drive’s health, such as temperature, reallocated sectors, error rates, and more. Although there are 90 SMART-related columns, they reflect approximately 45 unique SMART features, each possibly tracked over multiple metrics or time windows.
 The primary objective of this analysis is to investigate how these SMART attributes vary based on the manufacturer and the model of the drives. By understanding such variations, it becomes possible to detect patterns of early failure or identify certain models that are more resilient. Additionally, since drive wear is time-dependent, it is essential to compare drives of similar age—whether in days of operation or usage cycles—to ensure a fair and meaningful analysis. Such age-normalized comparisons can highlight whether anomalies in SMART values are due to manufacturing differences or simply the result of aging.
- 
+
+Dependent Coulmn:
+            This dataset has the 'Failure' column as the dependent column, while the remaining columns are all independent. 
+Since the 'Failure' column is supervised and categorized, I would say it's categorized. The values in this column are either 0 or 1.
+By using the remaining columns as independent variables, the final result set is generated.
+
