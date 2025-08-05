@@ -141,6 +141,13 @@ Extract the week number from the 'Date' column and create a new column for the w
 df_no_offers.loc[:, 'Week'] = df_no_offers['Date'].dt.isocalendar().week
 df_no_offers
 
+Step 4:
+-------
+Group the filtered DataFrame by 'Store' and the newly created week column and calculate the mean weekly sales.
+df_weekly_performance = df_no_offers.groupby(['Store', 'Week'])['Weekly_Sales'].mean().reset_index()
+pd.set_option('display.max_rows', None)
+df_weekly_performance
+
 ==================================================================================================================================================================
 
 
