@@ -35,12 +35,12 @@ df_store=pd.read_csv("/content/stores_data_set.csv")
 df_sale=pd.read_csv("/content/sales_data_set.csv")
 df_data=pd.read_csv("/content/Features_data_set.csv")
 
-1.We are merging  stores and sales data using common columns in both the files as "df_store_sales".
+1.We are merging  stores and sales data using common columns("Store") in both the files as "df_store_sales".
 
 df_store_sales=pd.merge(df_sale,df_store,on="Store")
 df_store_sales
 
-2.we are mernging "df_store_sales" and "df_data" using common columns in both the files as "df_final".
+2.we are mernging "df_store_sales" and "df_data" using common columns("Date","Store") in both the files as "df_final".
 
 df_final=pd.merge(df_store_sales,df_data,on=["Date","Store","IsHoliday"])
 df_final
