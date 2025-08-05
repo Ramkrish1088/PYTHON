@@ -1,0 +1,24 @@
+Working with NULL values:
+1.import pandas as pd
+df= pd.read_csv("/content/SAMPLE.csv")
+df
+
+2.df.isnull() & df.notnull() # To finfing the NULLL & NOT NULL values
+
+3.df.notnull().sum() # To findinf the count of NOT NULL values
+
+4.df.fillna(100) # filling the NULL values with 100
+
+5.df.fillna(method="bfill") # Backward fill using to fill the NULL values using backward
+
+6.df.fillna(method="ffill") # Forward fill using to fill the NULL values using forward
+
+7.df["cmark"]=df["cmark"].bfill() # Particular column we can fill the NULL vales using BFILL
+
+8.df["hsc"].fillna(df["hsc"].mean(),inplace=True) # Particular column we can fill the NULL vales using mean of HSC column
+
+9.df.dropna() # # removing the 
+
+10.df.dropna(axis=1)
+
+11.df.dropna(how="any") & all
