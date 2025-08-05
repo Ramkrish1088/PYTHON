@@ -57,8 +57,8 @@ df_final['Date'] = pd.to_datetime(df_final['Date'], format='%d/%m/%Y')
 Step 2:
 ------
 Filter the DataFrame to include only rows where 'Type' is 'C' and the month of the 'Date' is June.
-df_filtered_june_c = df_final[(df_final['Type'] == 'C') & (df_final['Date'].dt.month == 6)]
-display(df_filtered_june_c.head())
+df_final_output= df_final[(df_final["Type"]== "C") & (df_final["Date"].dt.month == 6)]
+df_final_output
 
 Stpe3:
 ------
