@@ -22,3 +22,131 @@ df
 10.df.dropna(axis=1)
 
 11.df.dropna(how="any") & all
+
+=================================================================================================================================================
+
+We have insetred 3 CSV files:
+-----------------------------
+
+import pandas as pd
+df_store=pd.read_csv("/content/stores_data_set.csv")
+df_sale=pd.read_csv("/content/sales_data_set.csv")
+df_data=pd.read_csv("/content/Features_data_set.csv")
+
+1.We are merging  stores and sales data using common columns in both the files as "df_store_sales".
+
+df_store_sales=pd.merge(df_sale,df_store,on="Store")
+df_store_sales
+
+2.we are mernging "df_store_sales" and "df_data" using common columns in both the files as "df_final".
+
+df_final=pd.merge(df_store_sales,df_data,on=["Date","Store","IsHoliday"])
+df_final
+
+Customer requirements:
+#1.Identify average customer visit in Type C store in June Month.
+----------------------------------------------------------------
+
+Step 1:
+------
+The subtask is to convert the 'Date' column to datetime objects. The pd.to_datetime function is suitable for this conversion.
+df_final['Date'] = pd.to_datetime(df_final['Date'], format='%d/%m/%Y')
+
+Step 2:
+------
+Filter the DataFrame to include only rows where 'Type' is 'C' and the month of the 'Date' is June.
+df_filtered_june_c = df_final[(df_final['Type'] == 'C') & (df_final['Date'].dt.month == 6)]
+display(df_filtered_june_c.head())
+
+Stpe3:
+------
+group the filtered data by 'Store' and calculate the mean of 'Weekly_Sales' to find the average customer visit for each store in Type C stores during June.
+df_avg=df_final_output.groupby("Store")["Weekly_Sales"].mean()
+df_avg
+
+Finding overall avg: 
+overall_average =  df_avg.mean()
+overall_average
+
+#2.Find the highest sales in each store type on Holiday season.
+---------------------------------------------------------------
+
+Step 1:
+------
+Filter the DataFrame to include only rows where 'IsHoliday' is True.
+df_holiday_sales=df_final[df_final["IsHoliday"]==True]
+df_holiday_sales
+
+Step 2:
+-------
+Calculate the maximum weekly sales for each store type from the filtered holiday sales data.
+df_highest_sales= df_holiday_sales.groupby("Type")["Weekly_Sales"].max()
+df_highest_sales
+
+#3.What is the expected sales of each depeartment when the unemployment factor is greater than 7
+-------------------------------------------------------------------------------------------------
+Step 1:
+-------
+Filter the DataFrame to include only rows where the 'Unemployment' factor is greater than 7 to prepare for calculating the average weekly sales for each department.
+df_unemployee=df_final[df_final["Unemployment"] >7]
+df_unemployee
+
+Step 2:
+------
+alculate the average weekly sales for each department from the filtered DataFrame where unemployment is greater than 7.
+average_sales_unemployment= df_unemployee.groupby("Dept")["Weekly_Sales"].mean()
+average_sales_unemployment
+
+#4.Aggregate net sales for each department in month wise
+---------------------------------------------------------
+
+Step 1:
+-------
+Extract the month from the 'Date' column and create a new column for the month.
+df_final['Month'] = df_final['Date'].dt.month
+
+Step 2:
+------
+The subtask of extracting the month and creating a new column is complete. The next step is to aggregate the net sales by department and month
+df_monthly_sales=df_final.groupby(["Dept","Month"])["Weekly_Sales"].sum().reset_index()
+df_monthly_sales
+
+#5.Identify the performance of the store on weekwise, without offers
+---------------------------------------------------------------------
+
+Step 1:
+------
+Filter the DataFrame to exclude rows where there were offers (IsHoliday is False and all MarkDown columns are either NaN or 0).
+markdown_columns = ['MarkDown1', 'MarkDown2', 'MarkDown3', 'MarkDown4', 'MarkDown5']
+df_no_offers = df_final[
+    (df_final['IsHoliday'] == False) &
+    ((df_final[markdown_columns].isnull()) | (df_final[markdown_columns] <= 0)).all(axis=1)
+]
+df_no_offers
+
+Step 2:
+------
+Calculate the sum of Weekly_Sales for each store in the filtered DataFrame to assess the performance of each store without offers.
+df_store_performance_no_offers = df_no_offers.groupby("Store")["Weekly_Sales"].sum().reset_index()
+df_store_performance_no_offers
+
+Step 3:
+------
+Add a new column "Week"
+df_no_offers['Week'] = df_no_offers['Date'].dt.isocalendar().week
+
+Extract the week number from the 'Date' column and create a new column for the week.
+df_no_offers.loc[:, 'Week'] = df_no_offers['Date'].dt.isocalendar().week
+df_no_offers
+
+==================================================================================================================================================================
+
+
+
+
+
+
+
+
+
+
