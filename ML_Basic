@@ -149,6 +149,47 @@ pd.set_option('display.max_rows', None)
 df_weekly_performance
 
 ==================================================================================================================================================================
+Task details: Preparaing the fle for Machine language
+
+Dataset link : https://drive.google.com/drive/u/0/folders/1L9O6CANfEBeXsxlzw6OvRXgmzJasYLCn
+File name: country_vaccinations.csv
+
+I have the file like country_vaccinations.csv, which is having the columns below.
+
+import pandas as pd
+df_vaccine=pd.read_csv("/content/country_vaccinations.csv")
+df_vaccine.columns
+Index(['country', 'iso_code', 'date', 'total_vaccinations',
+       'people_vaccinated', 'people_fully_vaccinated',
+       'daily_vaccinations_raw', 'daily_vaccinations',
+       'total_vaccinations_per_hundred', 'people_vaccinated_per_hundred',
+       'people_fully_vaccinated_per_hundred', 'daily_vaccinations_per_million',
+       'vaccines', 'source_name', 'source_website'],
+      dtype='object')
+
+Chekcing the NULL values in thais file.
+df_vaccine.isnull().sum()
+Replacing the NULL values with "No data".
+df_final=df_vaccine.fillna("No data",inplace=True)
+
+Checking the columns having (Object) string datatype.
+df_vaccine.select_dtypes(include="object").columns
+Index(['country', 'iso_code', 'date', 'total_vaccinations',
+       'people_vaccinated', 'people_fully_vaccinated',
+       'daily_vaccinations_raw', 'daily_vaccinations',
+       'total_vaccinations_per_hundred', 'people_vaccinated_per_hundred',
+       'people_fully_vaccinated_per_hundred', 'daily_vaccinations_per_million',
+       'vaccines', 'source_name', 'source_website'],
+      dtype='object')
+
+Changing the first column "country" into int64.
+from sklearn.preprocessing import LabelEncoder #scikit learn
+muthu=LabelEncoder()
+df_vaccine["country"]=muthu.fit_transform(df_vaccine["country"])
+df_vaccine["country"] changes into int64
+
+
+
 
 
 
